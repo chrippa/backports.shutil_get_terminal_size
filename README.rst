@@ -12,6 +12,8 @@ so it might be a tiny bit slower.
 Example usage
 -------------
 
+::
+
     >>> from backports.shutil_get_terminal_size import get_terminal_size
     >>> get_terminal_size()
     terminal_size(columns=105, lines=33)
