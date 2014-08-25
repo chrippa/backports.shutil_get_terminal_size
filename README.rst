@@ -2,13 +2,13 @@ backports.shutil_get_terminal_size
 ==================================
 
 
-.. image:: http://img.shields.io/pypi/v/backports.shutil_get_terminal_size.svg
+.. image:: http://img.shields.io/pypi/v/backports.shutil_get_terminal_size.svg?style=flat
     :target: https://pypi.python.org/pypi/backports.shutil_get_terminal_size
 
-.. image:: http://img.shields.io/pypi/dm/backports.shutil_get_terminal_size.svg
+.. image:: http://img.shields.io/pypi/dm/backports.shutil_get_terminal_size.svg?style=flat
     :target: https://pypi.python.org/pypi/backports.shutil_get_terminal_size
     
-.. image:: http://img.shields.io/travis/chrippa/backports.shutil_get_terminal_size.svg
+.. image:: http://img.shields.io/travis/chrippa/backports.shutil_get_terminal_size.svg?style=flat
     :target: http://travis-ci.org/chrippa/backports.shutil_get_terminal_size
 
 
