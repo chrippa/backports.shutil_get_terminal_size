@@ -23,7 +23,7 @@ so it might be a tiny bit slower.
 Example usage
 -------------
 
-::
+.. code-block:: pycon
 
     >>> from backports.shutil_get_terminal_size import get_terminal_size
     >>> get_terminal_size()
