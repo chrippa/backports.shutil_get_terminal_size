@@ -18,6 +18,23 @@ def test_does_not_crash():
     assert size.lines >= 0
 
 
+def test_not_a_tty():
+    proc = subprocess.Popen(
+        (
+            sys.executable, '-c',
+            'import backports.shutil_get_terminal_size as shutil;'
+            'print(tuple(shutil.get_terminal_size((1, 2))))',
+        ),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    out, err = proc.communicate()
+    out, err = out.decode('UTF-8'), err.decode('UTF-8')
+    assert not proc.returncode, (proc.returncode, out, err)
+    assert err == ''
+    assert out == '(1, 2)\n'
+
+
 def test_os_environ_first(monkeypatch):
     "Check if environment variables have precedence"
 

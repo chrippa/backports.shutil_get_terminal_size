@@ -48,9 +48,9 @@ except ImportError:
     def _get_terminal_size(fd):
         try:
             res = fcntl.ioctl(fd, termios.TIOCGWINSZ, b"\x00" * 4)
-            lines, columns = struct.unpack("hh", res)
-        except Exception:
-            columns = lines = 0
+        except IOError as e:
+            raise OSError(e)
+        lines, columns = struct.unpack("hh", res)
 
         return terminal_size(columns, lines)
 
