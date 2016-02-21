@@ -16,30 +16,30 @@ __all__ = ["get_terminal_size"]
 terminal_size = namedtuple("terminal_size", "columns lines")
 
 try:
-    from ctypes import windll, create_string_buffer
+    from ctypes import windll, create_string_buffer, WinError
 
-    _handles = {
-        0: windll.kernel32.GetStdHandle(-10),
-        1: windll.kernel32.GetStdHandle(-11),
-        2: windll.kernel32.GetStdHandle(-12),
+    _handle_ids = {
+        0: -10,
+        1: -11,
+        2: -12,
     }
 
     def _get_terminal_size(fd):
-        columns = lines = 0
-
-        try:
-            handle = _handles[fd]
-            csbi = create_string_buffer(22)
-            res = windll.kernel32.GetConsoleScreenBufferInfo(handle, csbi)
-            if res:
-                res = struct.unpack("hhhhHhhhhhh", csbi.raw)
-                left, top, right, bottom = res[5:9]
-                columns = right - left + 1
-                lines = bottom - top + 1
-        except Exception:
-            pass
-
-        return terminal_size(columns, lines)
+        handle = windll.kernel32.GetStdHandle(_handle_ids[fd])
+        if handle == 0:
+            raise OSError('handle cannot be retrieved')
+        if handle == -1:
+            raise WinError()
+        csbi = create_string_buffer(22)
+        res = windll.kernel32.GetConsoleScreenBufferInfo(handle, csbi)
+        if res:
+            res = struct.unpack("hhhhHhhhhhh", csbi.raw)
+            left, top, right, bottom = res[5:9]
+            columns = right - left + 1
+            lines = bottom - top + 1
+            return terminal_size(columns, lines)
+        else:
+            raise WinError()
 
 except ImportError:
     import fcntl
