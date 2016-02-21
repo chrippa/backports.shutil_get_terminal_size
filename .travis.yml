@@ -8,5 +8,10 @@ env:
  - TOXENV=py34
  - TOXENV=pypy
 install:
- - travis_retry pip install tox --use-mirrors
+ - travis_retry pip install tox
+ # virtualenv 14 installs pip8 under tox which breaks py32
+ - |
+    if [ "$TOXENV" = "py32" ]; then
+        pip install 'virtualenv<14'
+    fi
 script: tox
